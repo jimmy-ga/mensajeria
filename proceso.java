@@ -14,4 +14,10 @@ public class proceso //prototipo clase proceso
 	{
 		return this.nombre;
 	}
+	public int recibeMensaje(String Mensaje)
+	{
+		this.mensaje=Mensaje;
+		return 0;
+	}
+
 }
