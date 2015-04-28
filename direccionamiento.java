@@ -2,10 +2,14 @@ import java.util.*;
 public class direccionamiento //Clase para gestion del direccionamiento
 {
 	private int directo=0;
-	private static List<String> procesos = new ArrayList<String>();
+	private static ArrayList<String> procesos = new ArrayList<String>();
 
-	public void sendDirecto(String origen,String destino,String mensaje)
+	public void sendDirecto()//String origen,String destino,String mensaje)
 	{
+		for(int x=0;x<al.size();x++)
+		{
+			System.out.println(al.get(x));
+		}
 
 	}
 
@@ -29,12 +33,7 @@ public class direccionamiento //Clase para gestion del direccionamiento
 		//System.out.println(obj.retorna_nombre());
 
 		{
-			Iterator<String> nombreIterator = procesos.iterator();
-					while(nombreIterator.hasNext())
-					{
-						String elemento = nombreIterator.next();
-						System.out.print(elemento+" / ");
-			}
+			sendDirecto();
 		}
 	}
 }
