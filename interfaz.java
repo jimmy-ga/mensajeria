@@ -295,6 +295,12 @@ public class interfaz extends javax.swing.JFrame {
         if (fifo.isSelected() == false && prioridad.isSelected() == false){
             JOptionPane.showMessageDialog(null,"Debe escoger un tipo de manejo de colas.");
         }
+        if (indirecto.isSelected() && estatico.isSelected() == false && dinamico.isSelected() == false){
+            JOptionPane.showMessageDialog(null,"Debe escoger un tipo de direccionamiento indirecto.");
+        }
+        if (directo.isSelected() && explicito.isSelected() == false && implicito.isSelected() == false){
+            JOptionPane.showMessageDialog(null,"Debe escoger un tipo de direccionamiento directo.");
+        }
 
         System.out.println(valores);
         consola v = new consola();
