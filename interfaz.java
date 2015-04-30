@@ -286,6 +286,15 @@ public class interfaz extends javax.swing.JFrame {
         else{
             valores.add(cont);
         }
+        if (directo.isSelected() == false && indirecto.isSelected() == false){
+            JOptionPane.showMessageDialog(null,"Debe escoger un tipo de direccionamiento.");
+        }
+        if (fijo.isSelected() == false && variable.isSelected() == false){
+            JOptionPane.showMessageDialog(null,"Debe escoger un tipo de largo de formato.");
+        }
+        if (fifo.isSelected() == false && prioridad.isSelected() == false){
+            JOptionPane.showMessageDialog(null,"Debe escoger un tipo de manejo de colas.");
+        }
 
         System.out.println(valores);
         consola v = new consola();
