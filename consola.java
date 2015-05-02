@@ -1,11 +1,13 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.*;
 
 public class consola //Clase para simular la consola de la aplicación
 {
-	public void crear() throws IOException
+	public void crear(ArrayList<String> val) throws IOException
 	{
+				System.out.println(val);
                 int directo =0; // 0 directo, 1 indirecto
                 int explicito =0;// 0 explicito, 1 implicito
                 int estatico =0; // 0 estatico, 1 dinamico
@@ -21,5 +23,6 @@ public class consola //Clase para simular la consola de la aplicación
 				System.out.println(salida); //Impresión para verificación
 			} //Si salida se vuelve true por ingresar ese comando el programa se cierra
 			System.out.println("Programa terminado");
+			System.exit(0);
 	}
 }
