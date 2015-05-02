@@ -1,0 +1,2 @@
+[Fri May 01 22:10:25 CST 2015]Inicio del sistema con los siguientes parametros:
+[directo, explicito, variable, fifo, sad]

@@ -19,11 +19,11 @@ public class proceso //prototipo clase proceso
 		else this.estado=0;
 		return this.estado;
 	}
-	public int recibeMensaje(String Mensaje)
+	/*public int recibeMensaje(String Mensaje)
 	{
 		//this.mensaje=Mensaje;
 		return 0;
-	}
+	}*/
 	public int retorna_estado()
 	{
 		return this.estado;
