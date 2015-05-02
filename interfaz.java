@@ -282,36 +282,38 @@ public class interfaz extends javax.swing.JFrame {
         else{
             valores.add(cont);
         }
-        if (directo.isSelected() == false && indirecto.isSelected() == false){
-            JOptionPane.showMessageDialog(null,"Debe escoger un tipo de direccionamiento.");
-        }
-        if (fijo.isSelected() == false && variable.isSelected() == false){
-            JOptionPane.showMessageDialog(null,"Debe escoger un tipo de largo de formato.");
-        }
-        if (fifo.isSelected() == false && prioridad.isSelected() == false){
-            JOptionPane.showMessageDialog(null,"Debe escoger un tipo de manejo de colas.");
-        }
-        if (indirecto.isSelected() && estatico.isSelected() == false && dinamico.isSelected() == false){
-            JOptionPane.showMessageDialog(null,"Debe escoger un tipo de direccionamiento indirecto.");
-        }
-        if (directo.isSelected() && explicito.isSelected() == false && implicito.isSelected() == false){
-            JOptionPane.showMessageDialog(null,"Debe escoger un tipo de direccionamiento directo.");
-        }
-
-        //System.out.println(valores);
-        consola v = new consola();
-
-        if(fijo.isSelected() && largo.getText().length()==0){
+		if (directo.isSelected() == false && indirecto.isSelected() == false){
+			JOptionPane.showMessageDialog(null,"Debe escoger un tipo de direccionamiento.");
+		}
+		else if (fijo.isSelected() == false && variable.isSelected() == false){
+			JOptionPane.showMessageDialog(null,"Debe escoger un tipo de largo de formato.");
+		}
+		else if (fifo.isSelected() == false && prioridad.isSelected() == false){
+			JOptionPane.showMessageDialog(null,"Debe escoger un tipo de manejo de colas.");
+		}
+		else if (indirecto.isSelected() && estatico.isSelected() == false && dinamico.isSelected() == false){
+			JOptionPane.showMessageDialog(null,"Debe escoger un tipo de direccionamiento indirecto.");
+		}
+		else if (directo.isSelected() && explicito.isSelected() == false && implicito.isSelected() == false){
+			JOptionPane.showMessageDialog(null,"Debe escoger un tipo de direccionamiento directo.");
+		}
+        else if(fijo.isSelected() && largo.getText().length()==0){
 		            JOptionPane.showMessageDialog(null,"Debe ingresar un largo.");
         }
-        if (contenido.getText().length() == 0){
+        else if (contenido.getText().length() == 0){
 		            JOptionPane.showMessageDialog(null,"Debe ingresar un contenido.");
         }
+        else{
 		try {
+			//System.out.println(valores);
+        consola v = new consola();
+        this.setVisible(false);
 			v.crear(valores);
+
 		} catch (IOException ex) {
 			Logger.getLogger(interfaz.class.getName()).log(Level.SEVERE, null, ex);
 		}
+	}
 }
 
     private void directoActionPerformed(java.awt.event.ActionEvent evt) {

@@ -7,23 +7,52 @@ import java.util.*;
 
 public class consola //Clase para simular la consola de la aplicación
 {
-	    public String getFecha()//Funcion para obtener la fecha formateada
-	    {
-	        //Instanciamos el objeto Calendar
-	        //en fecha obtenemos la fecha y hora del sistema
-	        Calendar fecha = new GregorianCalendar();
-	        //Obtenemos el valor del año, mes, día,
-	        //hora, minuto y segundo del sistema
-	        //usando el método get y el parámetro correspondiente
-	        int anio = fecha.get(Calendar.YEAR);
-	        int mes = fecha.get(Calendar.MONTH);
-	        int dia = fecha.get(Calendar.DAY_OF_MONTH);
-	        int hora = fecha.get(Calendar.HOUR_OF_DAY);
-	        int minuto = fecha.get(Calendar.MINUTE);
-	        int segundo = fecha.get(Calendar.SECOND);
-	        return("["+dia + "/" + (mes+1) + "/" + anio+" - "+hora+":"+minuto+":"+segundo+"] ");
+	public String getFecha()//Funcion para obtener la fecha formateada
+	{
+		//Instanciamos el objeto Calendar
+		//en fecha obtenemos la fecha y hora del sistema
+		Calendar fecha = new GregorianCalendar();
+		//Obtenemos el valor del año, mes, día,
+		//hora, minuto y segundo del sistema
+		//usando el método get y el parámetro correspondiente
+		int anio = fecha.get(Calendar.YEAR);
+		int mes = fecha.get(Calendar.MONTH);
+		int dia = fecha.get(Calendar.DAY_OF_MONTH);
+		int hora = fecha.get(Calendar.HOUR_OF_DAY);
+		int minuto = fecha.get(Calendar.MINUTE);
+		int segundo = fecha.get(Calendar.SECOND);
+		return("["+dia + "/" + (mes+1) + "/" + anio+" - "+hora+":"+minuto+":"+segundo+"] ");
     }
 
+	public void menu(int directo)
+	{
+		BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Bienvenido a la aplicacion");
+		System.out.println("Ingrese comando");
+		System.out.println("Comandos posibles:\n ver \n salir \n enviar_msg");
+		Boolean salida=false; //Variable para mantener el ciclo de ejecucion
+		Ventana V;
+		while (!salida) //Inicio del ciclo de ejecución
+		{
+			try{
+				String input = br.readLine(); //Lee el "comando" de la consola
+				if (input.equals("salir")) salida=true;
+				if (input.equals("ver"))
+				{
+					V= new Ventana();//Compara con la palabra salir, se repite para otros comandos
+					V.setVisible(true);
+				}
+				if (input.equals("enviar_msg") && directo==0)
+				{
+
+				}
+				System.out.println(salida); //Impresión para verificación
+			 //Si salida se vuelve true por ingresar ese comando el programa se cierra
+			System.out.println("Programa terminado");
+			System.exit(0);
+		}catch(IOException e) {System.out.println(e);}
+	}
+	}
 	public void crear(ArrayList<String> val) throws IOException
 	{
 		//Variables para crear y escribir en archivo
@@ -58,26 +87,8 @@ public class consola //Clase para simular la consola de la aplicación
 		proceso p5=new proceso("TextPad");
 		pw.println(getFecha()+"Creado proceso "+p5.retorna_nombre());
 		f.close();
+		menu(directo);
 
 
-		BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
-		System.out.println("Bienvenido a la aplicacion");
-		System.out.println("Ingrese comando");
-		System.out.println("Comandos posibles:\n ver \n salir \n enviar_msg");
-		Boolean salida=false; //Variable para mantener el ciclo de ejecucion
-		Ventana V;
-		while (!salida) //Inicio del ciclo de ejecución
-			{
-				String input = br.readLine(); //Lee el "comando" de la consola
-				if (input.equals("salir")) salida=true;
-				if (input.equals("ver"))
-				{
-					V= new Ventana();//Compara con la palabra salir, se repite para otros comandos
-					V.setVisible(true);
-				}
-				System.out.println(salida); //Impresión para verificación
-			} //Si salida se vuelve true por ingresar ese comando el programa se cierra
-			System.out.println("Programa terminado");
-			System.exit(0);
 	}
 }
