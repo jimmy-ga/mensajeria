@@ -11,8 +11,8 @@ public class consola //Clase para simular la consola de la aplicación
 	public static ArrayList<String> FIFO = new ArrayList<String>();
 	Queue<String> CustomerPriority=new LinkedList();
 	Queue<String> integerPriorityQueue = new PriorityQueue<>(7);
+	public static ArrayList<String> mailbox = new ArrayList<String>();
 	/*public static ArrayList<String> FIFO = new ArrayList<String>();
-	public static ArrayList<String> FIFO = new ArrayList<String>();
 	public static ArrayList<String> FIFO = new ArrayList<String>();
 	public static ArrayList<String> FIFO = new ArrayList<String>();*/
 
@@ -87,6 +87,17 @@ public class consola //Clase para simular la consola de la aplicación
 		return 0;
 	}
 
+	public void crear_mailbox()
+	{
+		try{
+				FileWriter f = new FileWriter("Estado del sistema.txt",true);
+		PrintWriter pw = new PrintWriter(f);
+		pw.write(getFecha()+"Mailbox creado exitosamente"+"\n");
+		pw.close();
+		System.out.println("Mailbox creado exitosamente");
+		}catch(Exception e)
+	{System.out.println(e);}
+	}
 	public void recibir_directoFIFO()
 	{
 		try{
@@ -105,7 +116,7 @@ public class consola //Clase para simular la consola de la aplicación
 	{System.out.println(e);}
 	}
 
-	public void menu(int directo,int cola)
+	public void menu(int directo,int cola,int estatico)
 	{
 
 		System.out.println("Bienvenido a la aplicacion");
@@ -119,7 +130,7 @@ public class consola //Clase para simular la consola de la aplicación
 			interfaz inter=new interfaz();
 			V= new Ventana();//Compara con la palabra salir, se repite para otros comandos
 			System.out.println("Ingrese comando");
-			System.out.println("Comandos posibles:\n ver \n salir \n enviar_msg \n recibir_msg \n cerrar_vista \n reset");
+			System.out.println("Comandos posibles:\n ver \n salir \n enviar_msg \n recibir_msg \n cerrar_vista \n crear_mb \n conect_mb \n reset");
 				String input = br.readLine(); //Lee el "comando" de la consola
 				if (input.equals("salir")) salida=true;
 				else if (input.equals("ver"))
@@ -129,6 +140,11 @@ public class consola //Clase para simular la consola de la aplicación
 				}
 				else if (input.equals("enviar_msg") && directo==0 && cola==0)
 					envio_directoFIFO();
+				else if (input.equals("crear_mb")){
+					if(directo==1 && estatico==0)
+						crear_mailbox();
+						else System.out.println("Comando valido solo en ambiente indirecto estatico");
+					}
 				else if (input.equals("recibir_msg") && cola==0)
 					recibir_directoFIFO();
 				else if (input.equals("cerrar_vista")){
@@ -172,8 +188,8 @@ public class consola //Clase para simular la consola de la aplicación
 		int largo =0;
 		int cola =0; // 0 fifo, 1 prioridad
 
-		if(val.get(0).equals("Indirecto")) directo=1;
-
+		if(val.get(0).equals("indirecto")) directo=1;
+		if(val.get(1).equals("dinamico")) estatico=1;
 
 		proceso p1=new proceso("Word");
 		Procesos[0]=p1;
@@ -191,7 +207,7 @@ public class consola //Clase para simular la consola de la aplicación
 		Procesos[4]=p5;
 		pw.println(getFecha()+"Creado proceso "+p5.retorna_nombre());
 		f.close();
-		menu(directo,cola);
+		menu(directo,cola,estatico);
 
 
 	}
