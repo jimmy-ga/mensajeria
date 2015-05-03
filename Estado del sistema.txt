@@ -1,7 +1,7 @@
-[2/5/2015 - 20:54:42] Inicio del sistema con los siguientes parametros:
-[directo, explicito, variable, fifo, weq]
-[2/5/2015 - 20:54:42] Creado proceso Word
-[2/5/2015 - 20:54:42] Creado proceso Comunicador
-[2/5/2015 - 20:54:42] Creado proceso Lector de archivos
-[2/5/2015 - 20:54:42] Creado proceso Wxcel
-[2/5/2015 - 20:54:42] Creado proceso TextPad
+[2/5/2015 - 21:7:26] Inicio del sistema con los siguientes parametros:
+[directo, explicito, variable, fifo, 243]
+[2/5/2015 - 21:7:26] Creado proceso Word
+[2/5/2015 - 21:7:26] Creado proceso Comunicador
+[2/5/2015 - 21:7:26] Creado proceso Lector de archivos
+[2/5/2015 - 21:7:26] Creado proceso Wxcel
+[2/5/2015 - 21:7:26] Creado proceso TextPad

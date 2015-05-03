@@ -116,10 +116,10 @@ public class consola //Clase para simular la consola de la aplicación
 		try{
 		while (!salida) //Inicio del ciclo de ejecución
 		{
-
+			interfaz inter=new interfaz();
 			V= new Ventana();//Compara con la palabra salir, se repite para otros comandos
 			System.out.println("Ingrese comando");
-			System.out.println("Comandos posibles:\n ver \n salir \n enviar_msg \n recibir_msg \n cerrar_vista");
+			System.out.println("Comandos posibles:\n ver \n salir \n enviar_msg \n recibir_msg \n cerrar_vista \n reset");
 				String input = br.readLine(); //Lee el "comando" de la consola
 				if (input.equals("salir")) salida=true;
 				else if (input.equals("ver"))
@@ -135,6 +135,13 @@ public class consola //Clase para simular la consola de la aplicación
 					if (vista==1) V.setVisible(false);
 					else System.out.println("Ventana de vista no abierta aun");
 				}
+				else if (input.equals("reset"))
+					{
+						//inter=new interfaz();
+						inter.setVisible(true);
+						//this.dispose();//oculta el jFrame que estes usando
+
+					}
 				else
 					System.out.println("Comando invalido");
 			}
