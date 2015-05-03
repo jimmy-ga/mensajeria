@@ -32,7 +32,7 @@ public class Ventana extends JFrame implements ActionListener {
         this.setLocationRelativeTo(null);                       // centramos la ventana en la pantalla
         this.setLayout(null);                                   // no usamos ningun layout, solo asi podremos dar posiciones a los componentes
         this.setResizable(false);                               // hacemos que la ventana no sea redimiensionable
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);    // hacemos que cuando se cierre la ventana termina todo proceso
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    // hacemos que cuando se cierre la ventana termina todo proceso
     }
 
     private void inicializarComponentes() {
@@ -54,7 +54,10 @@ public class Ventana extends JFrame implements ActionListener {
             caja.append( "linea "+i+"\n" );*/
         caja.setBounds(0, 0, 590, 470);   // colocamos posicion y tamanio a la caja (x, y, ancho, alto)
         this.add(caja);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //boton.setText("Mostrar Mensaje");   // colocamos un texto al boton
+		//boton.setBounds(600, 100, 25, 30);  // colocamos posicion y tamanio al boton (x, y, ancho, alto)
+        //boton.addActionListener(this);
+        //this.add(boton);
     }
 
     @Override

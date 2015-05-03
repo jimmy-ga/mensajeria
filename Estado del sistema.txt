@@ -1,8 +1,7 @@
-[2/5/2015 - 18:28:58] Inicio del sistema con los siguientes parametros:
-[directo, explicito, variable, fifo, sfd]
-[2/5/2015 - 18:28:58] Creado proceso Word
-[2/5/2015 - 18:28:58] Creado proceso Comunicador
-[2/5/2015 - 18:28:58] Creado proceso Lector de archivos
-[2/5/2015 - 18:28:58] Creado proceso Wxcel
-[2/5/2015 - 18:28:58] Creado proceso TextPad
-[2/5/2015 - 18:29:9] Proceso Word envia mensaje {sdfjlks} a Wxcel
+[2/5/2015 - 20:54:42] Inicio del sistema con los siguientes parametros:
+[directo, explicito, variable, fifo, weq]
+[2/5/2015 - 20:54:42] Creado proceso Word
+[2/5/2015 - 20:54:42] Creado proceso Comunicador
+[2/5/2015 - 20:54:42] Creado proceso Lector de archivos
+[2/5/2015 - 20:54:42] Creado proceso Wxcel
+[2/5/2015 - 20:54:42] Creado proceso TextPad

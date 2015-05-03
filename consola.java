@@ -7,7 +7,15 @@ import java.util.*;
 
 public class consola //Clase para simular la consola de la aplicación
 {
+
 	public static ArrayList<String> FIFO = new ArrayList<String>();
+	Queue<String> CustomerPriority=new LinkedList();
+	Queue<String> integerPriorityQueue = new PriorityQueue<>(7);
+	/*public static ArrayList<String> FIFO = new ArrayList<String>();
+	public static ArrayList<String> FIFO = new ArrayList<String>();
+	public static ArrayList<String> FIFO = new ArrayList<String>();
+	public static ArrayList<String> FIFO = new ArrayList<String>();*/
+
 	public static proceso[] Procesos = new proceso[10];
 	public BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
 	public String getFecha()//Funcion para obtener la fecha formateada
@@ -41,8 +49,9 @@ public class consola //Clase para simular la consola de la aplicación
 		return salida;
 	}
 
-	public void envio_directoFIFO()
+	public int envio_directoFIFO()
 	{
+
 		String emisor="",receptor="";
 		try
 		{
@@ -58,8 +67,9 @@ public class consola //Clase para simular la consola de la aplicación
 				{
 					System.out.println("Digite el mensaje: ");
 					String mensaje=br.readLine();
-					pw.write(getFecha()+"Proceso "+emisor+" envia mensaje {"+mensaje+"} a "+receptor);
+					pw.write(getFecha()+"Proceso "+emisor+" envia mensaje {"+mensaje+"} a "+receptor+"\n");
 					pw.close();
+					CustomerPriority.add(receptor+" ha recibido mensaje {"+mensaje+"}");
 					System.out.println("Mensaje enviado");
 				}
 				else {
@@ -74,38 +84,66 @@ public class consola //Clase para simular la consola de la aplicación
 		{
 			System.out.println(e);
 		}
+		return 0;
+	}
+
+	public void recibir_directoFIFO()
+	{
+		try{
+		FileWriter f = new FileWriter("Estado del sistema.txt",true);
+		PrintWriter pw = new PrintWriter(f);
+		if(CustomerPriority.peek() == null)
+        	System.out.println("Cola vacia");
+        else
+        {
+			String in = CustomerPriority.poll();
+			System.out.println(in.toString());
+        	pw.write(getFecha()+in.toString()+"\n");
+			pw.close();
+		}
+	}catch(Exception e)
+	{System.out.println(e);}
 	}
 
 	public void menu(int directo,int cola)
 	{
 
 		System.out.println("Bienvenido a la aplicacion");
-		System.out.println("Ingrese comando");
-		System.out.println("Comandos posibles:\n ver \n salir \n enviar_msg");
+
 		Boolean salida=false; //Variable para mantener el ciclo de ejecucion
 		Ventana V;
-
+		int vista=0;
+		try{
 		while (!salida) //Inicio del ciclo de ejecución
 		{
-			try{
+
+			V= new Ventana();//Compara con la palabra salir, se repite para otros comandos
+			System.out.println("Ingrese comando");
+			System.out.println("Comandos posibles:\n ver \n salir \n enviar_msg \n recibir_msg \n cerrar_vista");
 				String input = br.readLine(); //Lee el "comando" de la consola
 				if (input.equals("salir")) salida=true;
-				if (input.equals("ver"))
+				else if (input.equals("ver"))
 				{
-					V= new Ventana();//Compara con la palabra salir, se repite para otros comandos
 					V.setVisible(true);
+					vista=1;
 				}
-				if (input.equals("enviar_msg") && directo==0 && cola==0)
-				{
+				else if (input.equals("enviar_msg") && directo==0 && cola==0)
 					envio_directoFIFO();
-					salida=false;
+				else if (input.equals("recibir_msg") && cola==0)
+					recibir_directoFIFO();
+				else if (input.equals("cerrar_vista")){
+					if (vista==1) V.setVisible(false);
+					else System.out.println("Ventana de vista no abierta aun");
 				}
+				else
+					System.out.println("Comando invalido");
+			}
 				System.out.println(salida); //Impresión para verificación
 			 //Si salida se vuelve true por ingresar ese comando el programa se cierra
 			System.out.println("Programa terminado");
 			System.exit(0);
 		}catch(IOException e) {System.out.println(e);}
-	}
+
 	}
 	public void crear(ArrayList<String> val) throws IOException
 	{
