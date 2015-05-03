@@ -12,6 +12,7 @@ public class consola //Clase para simular la consola de la aplicación
 	Queue<String> CustomerPriority=new LinkedList();
 	Queue<String> integerPriorityQueue = new PriorityQueue<>(7);
 	public static ArrayList<String> mailbox = new ArrayList<String>();
+	public int expl=0;
 	/*public static ArrayList<String> FIFO = new ArrayList<String>();
 	public static ArrayList<String> FIFO = new ArrayList<String>();
 	public static ArrayList<String> FIFO = new ArrayList<String>();*/
@@ -49,6 +50,49 @@ public class consola //Clase para simular la consola de la aplicación
 		return salida;
 	}
 
+	public int envio_directoPrioridad()
+		{
+
+			String emisor="",receptor="";
+			try
+			{
+				FileWriter f = new FileWriter("Estado del sistema.txt",true);
+				PrintWriter pw = new PrintWriter(f);
+				System.out.println("Digite el nombre de proceso emisor: ");
+				emisor=br.readLine();
+				if(verifica_proceso(emisor))
+				{
+					System.out.println("Digite el nombre de proceso receptor: ");
+					receptor=br.readLine();
+					if(verifica_proceso(receptor))
+					{
+						System.out.println("Digite la prioridad: ");
+						int prior=Integer.parseInt(br.readLine());
+						System.out.println("Digite el mensaje: ");
+						String mensaje=br.readLine();
+						pw.write(getFecha()+"Proceso "+emisor+" envia mensaje {"+mensaje+"} a "+receptor+"\n");
+						pw.close();
+						if (expl==0)
+							integerPriorityQueue.add(receptor+" ha recibido mensaje {"+mensaje+"}");
+						else
+							CustomerPriority.add(receptor+" ha recibido mensaje {"+mensaje+"} de "+emisor);
+							System.out.println("Mensaje enviado");
+					}
+					else {
+							System.out.println("Proceso no existe");
+							envio_directoFIFO();}
+				}
+				else {
+					System.out.println("Proceso no existe");
+					envio_directoFIFO();}
+				}
+			catch(Exception e)
+			{
+				System.out.println(e);
+			}
+			return 0;
+	}
+
 	public int envio_directoFIFO()
 	{
 
@@ -69,7 +113,10 @@ public class consola //Clase para simular la consola de la aplicación
 					String mensaje=br.readLine();
 					pw.write(getFecha()+"Proceso "+emisor+" envia mensaje {"+mensaje+"} a "+receptor+"\n");
 					pw.close();
-					CustomerPriority.add(receptor+" ha recibido mensaje {"+mensaje+"}");
+					if (expl==0)
+						CustomerPriority.add(receptor+" ha recibido mensaje {"+mensaje+"}");
+					else
+						CustomerPriority.add(receptor+" ha recibido mensaje {"+mensaje+"} de "+emisor);
 					System.out.println("Mensaje enviado");
 				}
 				else {
@@ -87,6 +134,17 @@ public class consola //Clase para simular la consola de la aplicación
 		return 0;
 	}
 
+	public void conect_mailbox()
+	{
+		try{
+				FileWriter f = new FileWriter("Estado del sistema.txt",true);
+				PrintWriter pw = new PrintWriter(f);
+				pw.write(getFecha()+"Conexion a mailbox exitosa"+"\n");
+				pw.close();
+				System.out.println("Conexion a mailbox exitosa");
+				}catch(Exception e)
+	{System.out.println(e);}
+	}
 	public void crear_mailbox()
 	{
 		try{
@@ -116,21 +174,21 @@ public class consola //Clase para simular la consola de la aplicación
 	{System.out.println(e);}
 	}
 
-	public void menu(int directo,int cola,int estatico)
+	public void menu(int directo,int cola,int estatico,int explicito)
 	{
 
 		System.out.println("Bienvenido a la aplicacion");
-
 		Boolean salida=false; //Variable para mantener el ciclo de ejecucion
 		Ventana V;
 		int vista=0;
+		expl=explicito;
 		try{
 		while (!salida) //Inicio del ciclo de ejecución
 		{
 			interfaz inter=new interfaz();
 			V= new Ventana();//Compara con la palabra salir, se repite para otros comandos
 			System.out.println("Ingrese comando");
-			System.out.println("Comandos posibles:\n ver \n salir \n enviar_msg \n recibir_msg \n cerrar_vista \n crear_mb \n conect_mb \n reset");
+			System.out.println("Comandos posibles:\n ver \n salir \n enviar_msg \n recibir_msg \n cerrar_vista \n crear_mb \n conect_mb \n desconect_mb \n reset");
 				String input = br.readLine(); //Lee el "comando" de la consola
 				if (input.equals("salir")) salida=true;
 				else if (input.equals("ver"))
@@ -140,10 +198,17 @@ public class consola //Clase para simular la consola de la aplicación
 				}
 				else if (input.equals("enviar_msg") && directo==0 && cola==0)
 					envio_directoFIFO();
+				else if (input.equals("enviar_msg") && directo==0 && cola==1)
+					envio_directoPrioridad();
 				else if (input.equals("crear_mb")){
 					if(directo==1 && estatico==0)
 						crear_mailbox();
 						else System.out.println("Comando valido solo en ambiente indirecto estatico");
+					}
+				else if (input.equals("conect_mb")){
+					if(directo==1 && estatico==1)
+						conect_mailbox();
+						else System.out.println("Comando valido solo en ambiente indirecto dinamico");
 					}
 				else if (input.equals("recibir_msg") && cola==0)
 					recibir_directoFIFO();
@@ -189,6 +254,7 @@ public class consola //Clase para simular la consola de la aplicación
 		int cola =0; // 0 fifo, 1 prioridad
 
 		if(val.get(0).equals("indirecto")) directo=1;
+		if(val.get(1).equals("implicito")) explicito=1;
 		if(val.get(1).equals("dinamico")) estatico=1;
 
 		proceso p1=new proceso("Word");
@@ -207,7 +273,7 @@ public class consola //Clase para simular la consola de la aplicación
 		Procesos[4]=p5;
 		pw.println(getFecha()+"Creado proceso "+p5.retorna_nombre());
 		f.close();
-		menu(directo,cola,estatico);
+		menu(directo,cola,estatico,explicito);
 
 
 	}

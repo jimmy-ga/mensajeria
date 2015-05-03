@@ -1,7 +1,9 @@
-[2/5/2015 - 21:29:37] Inicio del sistema con los siguientes parametros:
-[indirecto, dinamico, variable, fifo, sdf]
-[2/5/2015 - 21:29:37] Creado proceso Word
-[2/5/2015 - 21:29:37] Creado proceso Comunicador
-[2/5/2015 - 21:29:37] Creado proceso Lector de archivos
-[2/5/2015 - 21:29:37] Creado proceso Wxcel
-[2/5/2015 - 21:29:37] Creado proceso TextPad
+[2/5/2015 - 21:49:32] Inicio del sistema con los siguientes parametros:
+[directo, implicito, variable, fifo, fs]
+[2/5/2015 - 21:49:32] Creado proceso Word
+[2/5/2015 - 21:49:32] Creado proceso Comunicador
+[2/5/2015 - 21:49:32] Creado proceso Lector de archivos
+[2/5/2015 - 21:49:32] Creado proceso Wxcel
+[2/5/2015 - 21:49:32] Creado proceso TextPad
+[2/5/2015 - 21:49:45] Proceso Word envia mensaje {kjdhsa} a TextPad
+[2/5/2015 - 21:49:52] TextPad ha recibido mensaje {kjdhsa} de Word
