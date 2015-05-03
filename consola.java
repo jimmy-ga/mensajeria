@@ -7,6 +7,9 @@ import java.util.*;
 
 public class consola //Clase para simular la consola de la aplicación
 {
+	public static ArrayList<String> FIFO = new ArrayList<String>();
+	public static proceso[] Procesos = new proceso[10];
+	public BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
 	public String getFecha()//Funcion para obtener la fecha formateada
 	{
 		//Instanciamos el objeto Calendar
@@ -24,14 +27,64 @@ public class consola //Clase para simular la consola de la aplicación
 		return("["+dia + "/" + (mes+1) + "/" + anio+" - "+hora+":"+minuto+":"+segundo+"] ");
     }
 
-	public void menu(int directo)
+	public Boolean verifica_proceso(String nombre)
 	{
-		BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+		Boolean salida=false;
+		for(int i=0;i<5;i++)
+			{
+				if(Procesos[i].retorna_nombre().equals(nombre))
+			{
+				salida=true;
+				break;
+			}
+		}
+		return salida;
+	}
+
+	public void envio_directoFIFO()
+	{
+		String emisor="",receptor="";
+		try
+		{
+			FileWriter f = new FileWriter("Estado del sistema.txt",true);
+			PrintWriter pw = new PrintWriter(f);
+			System.out.println("Digite el nombre de proceso emisor: ");
+			emisor=br.readLine();
+			if(verifica_proceso(emisor))
+			{
+				System.out.println("Digite el nombre de proceso receptor: ");
+				receptor=br.readLine();
+				if(verifica_proceso(receptor))
+				{
+					System.out.println("Digite el mensaje: ");
+					String mensaje=br.readLine();
+					pw.write(getFecha()+"Proceso "+emisor+" envia mensaje {"+mensaje+"} a "+receptor);
+					pw.close();
+					System.out.println("Mensaje enviado");
+				}
+				else {
+						System.out.println("Proceso no existe");
+						envio_directoFIFO();}
+			}
+			else {
+				System.out.println("Proceso no existe");
+				envio_directoFIFO();}
+			}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+	}
+
+	public void menu(int directo,int cola)
+	{
+
 		System.out.println("Bienvenido a la aplicacion");
 		System.out.println("Ingrese comando");
 		System.out.println("Comandos posibles:\n ver \n salir \n enviar_msg");
 		Boolean salida=false; //Variable para mantener el ciclo de ejecucion
 		Ventana V;
+
 		while (!salida) //Inicio del ciclo de ejecución
 		{
 			try{
@@ -42,9 +95,10 @@ public class consola //Clase para simular la consola de la aplicación
 					V= new Ventana();//Compara con la palabra salir, se repite para otros comandos
 					V.setVisible(true);
 				}
-				if (input.equals("enviar_msg") && directo==0)
+				if (input.equals("enviar_msg") && directo==0 && cola==0)
 				{
-
+					envio_directoFIFO();
+					salida=false;
 				}
 				System.out.println(salida); //Impresión para verificación
 			 //Si salida se vuelve true por ingresar ese comando el programa se cierra
@@ -77,17 +131,22 @@ public class consola //Clase para simular la consola de la aplicación
 
 
 		proceso p1=new proceso("Word");
+		Procesos[0]=p1;
 		pw.println(getFecha()+"Creado proceso "+p1.retorna_nombre());
 		proceso p2=new proceso("Comunicador");
+		Procesos[1]=p2;
 		pw.println(getFecha()+"Creado proceso "+p2.retorna_nombre());
 		proceso p3=new proceso("Lector de archivos");
+		Procesos[2]=p3;
 		pw.println(getFecha()+"Creado proceso "+p3.retorna_nombre());
 		proceso p4=new proceso("Wxcel");
+		Procesos[3]=p4;
 		pw.println(getFecha()+"Creado proceso "+p4.retorna_nombre());
 		proceso p5=new proceso("TextPad");
+		Procesos[4]=p5;
 		pw.println(getFecha()+"Creado proceso "+p5.retorna_nombre());
 		f.close();
-		menu(directo);
+		menu(directo,cola);
 
 
 	}
