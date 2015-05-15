@@ -257,7 +257,32 @@ public class consola //Clase para simular la consola de la aplicación
 		if(val.get(1).equals("implicito")) explicito=1;
 		if(val.get(1).equals("dinamico")) estatico=1;
 
-		proceso p1=new proceso("Word");
+		File archivo = new File ("Procesos.txt");
+		String[] procs=new String[100];
+		String linea="";
+		int cont=0;
+		try {
+			FileReader fr = new FileReader (archivo);
+			BufferedReader br = new BufferedReader(fr);
+			while((linea=br.readLine())!=null)
+			{
+				procs[cont]=linea;
+				cont++;
+			}
+			}
+		catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+
+		for (int x=0;x<cont;x++)
+		{
+			//proceso envi=new proceso(procs[x]);
+			Procesos[x]=new proceso(procs[x]);
+			pw.println(getFecha()+"Creado proceso "+procs[x]);
+			//System.out.println("Cant: "+x+" "+procs[x]);
+		}
+		/*proceso p1=new proceso("Word");
 		Procesos[0]=p1;
 		pw.println(getFecha()+"Creado proceso "+p1.retorna_nombre());
 		proceso p2=new proceso("Comunicador");
@@ -271,7 +296,7 @@ public class consola //Clase para simular la consola de la aplicación
 		pw.println(getFecha()+"Creado proceso "+p4.retorna_nombre());
 		proceso p5=new proceso("TextPad");
 		Procesos[4]=p5;
-		pw.println(getFecha()+"Creado proceso "+p5.retorna_nombre());
+		pw.println(getFecha()+"Creado proceso "+p5.retorna_nombre());*/
 		f.close();
 		menu(directo,cola,estatico,explicito);
 
